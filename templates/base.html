@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask Web App{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav>
+        <a href="{{ url_for('home') }}">Home</a>
+        <a href="{{ url_for('about') }}">About</a>
+        <a href="{{ url_for('submit') }}">Submit</a>
+    </nav>
+
+    <!-- Conditionally Display Cat Fact on About and Submit Pages -->
+    {% if show_cat_fact %}
+    <div class="cat-fact-container">
+        <h3>Cat Fact:</h3>
+        <p class="cat-fact">
+            {% if cat_fact %}
+                {{ cat_fact }}
+            {% else %}
+                Click "Update" to get a new cat fact!
+            {% endif %}
+        </p>
+    </div>
+
+    <!-- Button to Update Cat Fact -->
+    <button id="updateButton">Update Cat Fact</button>
+    {% endif %}
+
+    <!-- Main Content (page-specific content will go here) -->
+    {% block content %}{% endblock %}
+
+    <script>
+        document.getElementById("updateButton").addEventListener("click", function() {
+            // Make an AJAX request to fetch a new cat fact
+            fetch('/update-cat-fact')
+                .then(response => response.json())
+                .then(data => {
+                    // Update the cat fact displayed on the page
+                    document.querySelector(".cat-fact").innerText = data.cat_fact;
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    </script>
+</body>
+</html>

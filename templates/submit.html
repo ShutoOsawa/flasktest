@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block title %}Submit{% endblock %}
+
+{% block content %}
+<h1>Submit Your Name</h1>
+<form method="POST">
+    <input type="text" name="name" placeholder="Enter your name">
+    <button type="submit">Submit</button>
+</form>
+{% endblock %}
