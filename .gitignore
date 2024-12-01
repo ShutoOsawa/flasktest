@@ -16,6 +16,10 @@ instance/
 *.env
 config.py
 
+# Flask sessions
+.flask_session/
+flask_session/
+
 # React-related
 node_modules/
 build/
@@ -33,9 +37,6 @@ Thumbs.db
 .idea/
 *.sublime-workspace
 *.sublime-project
-
-# Flask sessions
-*.session
 
 # dotenv (environment variable files)
 .env
